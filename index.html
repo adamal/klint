@@ -25,14 +25,28 @@
         }),
       });
 
+      var toRemove = [
+        ...document.getElementsByClassName("cesium-viewer-toolbar"),
+        ...document.getElementsByClassName("cesium-viewer-animationContainer"),
+        ...document.getElementsByClassName("cesium-viewer-timelineContainer"),
+        ...document.getElementsByClassName("cesium-viewer-fullscreenContainer")
+      ];
+      toRemove.forEach(element => {
+        element.parentNode.removeChild(element);
+      });
+
+
       var tileset = viewer.scene.primitives.add(
         new Cesium.Cesium3DTileset({
           url: Cesium.IonResource.fromAssetId(362724),
         })
       );
 
+
       tileset.readyPromise
         .then(function () {
+          var attribution = [...document.getElementsByClassName("cesium-viewer-bottom")][0];
+          attribution.style.left = "3px";
           viewer.zoomTo(tileset);
         });
     }
@@ -44,6 +58,3 @@
 </body>
 
 </html>
-
-
-
